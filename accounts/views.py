@@ -14,3 +14,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+def my_account(request):
+    return render(request, 'myaccount.html')
