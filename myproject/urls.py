@@ -1,9 +1,11 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.views.generic import DetailView
 
 from accounts import views as accounts_views
 from boards import views
+from boards.models import Post
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
@@ -36,7 +38,8 @@ urlpatterns = [
     url(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
     url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     url(r'^admin/', admin.site.urls),
-    url(r'^profile/$', accounts_views.profile,name='profile'),
-    url(r'^profile/edit_profile/$', accounts_views.edit_profile, name='edit_profile'),
+    url(r'profile/[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]$', accounts_views.profile,name='profile'),
+    url(r'^profile/[0-9A-Za-z_\-]/edit_profile/$', accounts_views.edit_profile, name='edit_profile'),
+    url(r'^boards/(\d+)/(?P<pk>\d+)$', views.p, name='p'),
 
 ]

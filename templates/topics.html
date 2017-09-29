@@ -20,18 +20,17 @@
       <tr>
         <th>Topic</th>
         <th>Starter</th>
-        <th>Replies</th>
-        <th>Views</th>
+
         <th>Last Update</th>
       </tr>
     </thead>
     <tbody>
-      {% for topic in board.topics.all %}
+      {% for topic in board.topics.all reversed %}
         <tr>
-          <td>{{ topic.subject }}</td>
-          <td><a href="" />{{ topic.starter.username }}</td>
-          <td>0</td>
-          <td>0</td>
+          <td><a href="{{ topic.id }}">{{ topic.subject }}</a></td>
+          {% if user.is_authenticated %}
+          <td><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></td>
+          {% endif %}
           <td>{{ topic.last_updated }}</td>
         </tr>
       {% endfor %}

@@ -20,6 +20,7 @@ def signup(request):
 def profile(request):
     return render(request, 'profile.html')
 
+
 def edit_profile(request):
 
     user = request.user
