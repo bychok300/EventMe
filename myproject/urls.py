@@ -1,11 +1,9 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.views.generic import DetailView
-
 from accounts import views as accounts_views
 from boards import views
-from boards.models import Post
+
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),

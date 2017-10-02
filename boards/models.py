@@ -24,3 +24,10 @@ class Post(models.Model):
     updated_at = models.DateTimeField(null=True)
     created_by = models.ForeignKey(User, related_name='posts')
     updated_by = models.ForeignKey(User, null=True, related_name='+')
+
+
+class Comments(models.Model):
+    creator = models.ForeignKey(User, related_name='comment')
+    body = models.TextField(max_length=4000)
+    post = models.ForeignKey(Post, related_name='comment', null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True,)

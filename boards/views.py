@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import NewTopicForm
-from .models import Board, Topic, Post
+from .forms import NewTopicForm, CustomCommentForm
+from .models import Board, Topic, Post, Comments
 
 
 def home(request):
@@ -39,4 +39,19 @@ def new_topic(request, pk):
 def p(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
     post = get_object_or_404(Post, pk=pk)
+    #comment = get_object_or_404(Comments, pk=pk)
+    # if request.method == 'POST':
+    #     form = CustomCommentForm(request.POST)
+    #     if form.is_valid():
+    #         comment = form.save(commit=False)
+    #         comment.save()
+    #         comment = Comments.objects.create(
+    #             comment=form.cleaned_data.get('comment'),
+    #
+    #         )
+    #         return redirect('board_topics', pk=comment.pk)  # TODO: redirect to the created topic page
+    # else:
+    #     form = CustomCommentForm()
     return render(request, 'post.html', {'post': post, 'topic': topic})
+
+
