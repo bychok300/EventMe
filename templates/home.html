@@ -1,31 +1,33 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block breadcrumb %}
   <li class="breadcrumb-item active">Boards</li>
 {% endblock %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/grid.css' %}">
+{% endblock %}
+
 {% block content %}
-  <table class="table">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Board</th>
-        <th>Posts</th>
+<div class="container">
 
-        <th>Last Post</th>
-      </tr>
-    </thead>
-    <tbody>
+
+  <div class="row">
+    <hr>
+    <section id="pinBoot">
       {% for board in boards %}
-        <tr>
-          <td>
-            <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
-            <small class="text-muted d-block">{{ board.description }}</small>
-          </td>
-          <td class="align-middle">{{ board.topics.count }}</td>
+      <article class="white-panel"><img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
+        <h4><a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a></h4>
+        <p>{{ board.description }}</p>
+        <p><b>Posts :</b> {{ board.topics.count }}</p>
+      </article>
 
-          <td class="align-middle"></td>
-        </tr>
       {% endfor %}
-    </tbody>
-  </table>
+    </section>
+    <hr>
+
+
+  </div>
+
+</div>
 {% endblock %}

@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
   {{ board.name }} - {{ block.super }}
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/grid.css' %}">
 {% endblock %}
 
 {% block breadcrumb %}
@@ -15,25 +19,31 @@
     <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
   </div>
   {% endif %}
-  <table class="table">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Topic</th>
-        <th>Starter</th>
 
-        <th>Last Update</th>
-      </tr>
-    </thead>
-    <tbody>
+
+<div class="container">
+
+
+  <div class="row">
+    <hr>
+    <section id="pinBoot">
       {% for topic in board.topics.all reversed %}
-        <tr>
-          <td><a href="{{ topic.id }}">{{ topic.subject }}</a></td>
-          {% if user.is_authenticated %}
-          <td><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></td>
-          {% endif %}
-          <td>{{ topic.last_updated }}</td>
-        </tr>
+      <article class="white-panel"><img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
+        <h4><a href="{{ topic.id }}">{{ topic.subject }}</a></h4>
+        {% if user.is_authenticated %}
+        <p><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
+        {% endif %}
+        <p>created at : {{ topic.last_updated }}</p>
+
+        <!--<p>{{ post.message|truncatewords:1 }}</p>-->
+      </article>
+
       {% endfor %}
-    </tbody>
-  </table>
+    </section>
+    <hr>
+
+
+  </div>
+
+</div>
 {% endblock %}
