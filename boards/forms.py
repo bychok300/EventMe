@@ -24,10 +24,9 @@ class NewTopicForm(forms.ModelForm):
 class CustomCommentForm(forms.ModelForm):
     body = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 5, 'placeholder': 'What is in your mind?'}
+            attrs={'rows': 3, 'placeholder': 'Any ideas to comment?'}
         ),
-        max_length=4000,
-        help_text='The max length of the text is 4000.'
+        max_length=4000
     )
 
     class Meta:

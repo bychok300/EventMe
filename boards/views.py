@@ -50,21 +50,24 @@ def new_topic(request, pk):
 
 
 def p(request, pk):
+    user = request.user
     topic = get_object_or_404(Topic, pk=pk)
     post = get_object_or_404(Post, pk=pk)
-    #comment = get_object_or_404(Comments, pk=pk)
-    # if request.method == 'POST':
-    #     form = CustomCommentForm(request.POST)
-    #     if form.is_valid():
-    #         comment = form.save(commit=False)
-    #         comment.save()
-    #         comment = Comments.objects.create(
-    #             comment=form.cleaned_data.get('comment'),
-    #
-    #         )
-    #         return redirect('board_topics', pk=comment.pk)  # TODO: redirect to the created topic page
-    # else:
-    #     form = CustomCommentForm()
-    return render(request, 'post.html', {'post': post, 'topic': topic})
+    comment = Comments.objects.filter(pk=pk)
+    if request.method == 'POST':
+        form = CustomCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post     
+            comment.creator = user
+            comment.save()
+            comment = Comments.objects.create(
+                creator=user,
+                body=comment,
+            )
+            return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment, 'form': form})
+    else:
+        form = CustomCommentForm()
+    return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment, 'form': form})
 
 

@@ -35,4 +35,4 @@ class Comments(models.Model):
     creator = models.ForeignKey(User, related_name='comment')
     body = models.TextField(max_length=4000)
     post = models.ForeignKey(Post, related_name='comment', null=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True,)
+    created_at = models.DateTimeField(auto_now_add=True)
