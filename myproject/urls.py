@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from accounts import views as accounts_views
 from boards import views
 
-
+# тут думаю нечего объяснять и так всё ясно
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^signup/$', accounts_views.signup, name='signup'),

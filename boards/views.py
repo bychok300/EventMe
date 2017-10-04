@@ -4,10 +4,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewTopicForm, CustomCommentForm
 from .models import Board, Topic, Post, Comments
 
+# вьюс это представления
+# они связаны с урлами, т.е. при переходе по урлу будет показан какой-то вью
+#
+# в этом методе получают все объекты таблицы board и просто их отрисовывают
+
 
 def home(request):
     boards = Board.objects.all()
     return render(request, 'home.html', {'boards': boards})
+
+# по аналогии с методом хоум, только сдесь берется объект или 404
+# то есть если объект получить не удалось будет ошибка 404
+# второй параметор это первичный ключь
+# хз как описать его влияние
+# типо по нему обращаются к таблице
 
 
 def board_topics(request, pk):
@@ -15,10 +26,12 @@ def board_topics(request, pk):
     return render(request, 'topics.html', {'board': board})
 
 
+# этот метод создает новый топик
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
-    user = request.user    # TODO: get the currently logged in user
+    user = request.user    # get the currently logged in user
     if request.method == 'POST':
+        #инициализируем форму
         form = NewTopicForm(request.POST)
         if form.is_valid():
             topic = form.save(commit=False)

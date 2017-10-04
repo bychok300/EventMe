@@ -2,6 +2,10 @@ from django import forms
 
 from .models import Topic, Comments
 
+# forms.py это формы которые ты видишь в html
+# хз на самом деле как это ещё описать, я вроде интуитивно понимаю
+# но полностью объяснить не могу
+
 
 class NewTopicForm(forms.ModelForm):
     message = forms.CharField(
