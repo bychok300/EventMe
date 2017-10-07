@@ -35,7 +35,7 @@
         {% endif %}
         <p>created at : {{ topic.last_updated }}</p>
 
-        <!--<p>{{ post.message|truncatewords:1 }}</p>-->
+        <p>Comments: {{ comment.count }}</p>
       </article>
 
       {% endfor %}
