@@ -1,7 +1,9 @@
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
+from accounts.models import Profile
 from .forms import SignUpForm, EditProfileForm
 
 
@@ -17,8 +19,9 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def profile(request):
-    return render(request, 'profile.html')
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'profile.html', {'user': user})
 
 
 def edit_profile(request):

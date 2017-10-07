@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
     url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     url(r'^admin/', admin.site.urls),
-    url(r'profile/[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]$', accounts_views.profile,name='profile'),
+    url(r'profile/(?P<username>\w+)/$', accounts_views.profile, name='profile'),
     url(r'^profile/[0-9A-Za-z_\-]/edit_profile/$', accounts_views.edit_profile, name='edit_profile'),
     url(r'^boards/(\d+)/(?P<pk>\d+)$', views.p, name='p'),
 

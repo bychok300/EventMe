@@ -58,12 +58,13 @@ def p(request, pk):
         form = CustomCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.post = post     
+            comment.post = post
             comment.creator = user
             comment.save()
             comment = Comments.objects.create(
+                body=form.cleaned_data.get('body'),
                 creator=user,
-                body=comment,
+
             )
             return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment, 'form': form})
     else:

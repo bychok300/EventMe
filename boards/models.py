@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.timezone import now
 
 # файл models.py это орм. Каждый класс это таблица в базе данных,
 # поля класса это столбцы в базе
@@ -42,7 +42,7 @@ class Comments(models.Model):
     creator = models.ForeignKey(User, related_name='comment')
     body = models.TextField(max_length=4000)
     post = models.ForeignKey(Post, related_name='comment', null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=now)
 
     def __str__(self):
         return self.body
