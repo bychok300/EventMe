@@ -15,10 +15,13 @@ class NewTopicForm(forms.ModelForm):
         max_length=4000,
         help_text='The max length of the text is 4000.'
     )
+    # пока так, а то если оно не в обяз,
+    # то баг всплывает, вьха не находит картинку
+    image = forms.ImageField()
 
     class Meta:
         model = Topic
-        fields = ['subject', 'message']
+        fields = ['subject', 'message', 'image']
 
 
 class CustomCommentForm(forms.ModelForm):

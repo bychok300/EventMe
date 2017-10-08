@@ -28,14 +28,18 @@
     <hr>
     <section id="pinBoot">
       {% for topic in board.topics.all reversed %}
+      {% if topic.image != null %}
+      <article class="white-panel"><img src="{{ MEDIA_URL }}{{ topic.image.url }}" alt="">
+        {% else %}
       <article class="white-panel"><img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
+        {% endif %}
         <h4><a href="{{ topic.id }}">{{ topic.subject }}</a></h4>
         {% if user.is_authenticated %}
         <p><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
         {% endif %}
         <p>created at : {{ topic.last_updated }}</p>
 
-        <p>Comments: {{ comment.count }}</p>
+        <!--<p>Comments: {{ post.topic.comment.count }}</p>-->
       </article>
 
       {% endfor %}

@@ -1,10 +1,13 @@
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from accounts import views as accounts_views
 from boards import views
 
 # тут думаю нечего объяснять и так всё ясно
+from myproject import settings
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^signup/$', accounts_views.signup, name='signup'),
@@ -40,4 +43,4 @@ urlpatterns = [
     url(r'^profile/[0-9A-Za-z_\-]/edit_profile/$', accounts_views.edit_profile, name='edit_profile'),
     url(r'^boards/(\d+)/(?P<pk>\d+)$', views.p, name='p'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

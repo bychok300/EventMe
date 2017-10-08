@@ -21,21 +21,21 @@ def signup(request):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
+
     return render(request, 'profile.html', {'user': user})
 
 
 def edit_profile(request):
-
     user = request.user
-    form = EditProfileForm(request.POST or None, initial={'username': user.username, 'first_name': user.first_name, 'last_name': user.last_name})
+    form = EditProfileForm(request.POST, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
-            user.username = request.POST['username']
-            user.first_name = request.POST['first_name']
-            user.last_name = request.POST['last_name']
+            #user.username = request.POST.get('username')
+            user.first_name = request.POST.get('first_name')
+            user.last_name = request.POST.get('last_name')
 
             user.save()
-            return redirect(to=profile)
+            return redirect(to='profile/{}'.format(user))
 
     context = {
         "form": form

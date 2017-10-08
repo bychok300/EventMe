@@ -21,6 +21,7 @@ class Topic(models.Model):
     last_updated = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Board, related_name='topics')
     starter = models.ForeignKey(User, related_name='topics')
+    image = models.ImageField(upload_to='media', null=True)
 
     def __str__(self):
         return self.subject
