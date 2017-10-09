@@ -28,7 +28,7 @@
     <hr>
     <section id="pinBoot">
       {% for topic in board.topics.all reversed %}
-      {% if topic.image != null %}
+      {% if topic.image %}
       <article class="white-panel"><img src="{{ MEDIA_URL }}{{ topic.image.url }}" alt="">
         {% else %}
       <article class="white-panel"><img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">

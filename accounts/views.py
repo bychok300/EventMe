@@ -33,7 +33,7 @@ def edit_profile(request):
             #user.username = request.POST.get('username')
             user.first_name = request.POST.get('first_name')
             user.last_name = request.POST.get('last_name')
-
+            user.avatar = request.POST.get('avatar')
             user.save()
             return redirect(to='profile/{}'.format(user))
 

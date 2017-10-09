@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="card">
-    {% if topic.image != null %}
-  <img src="{{ MEDIA_URL }}{{ profile.image.url }}" alt="John" style="width:100%">
+    {% if user.avatar %}
+  <img src="{{ MEDIA_URL }}{{ user.avatar.url }}" alt="John" style="width:100%">
     {% else  %}
     <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="John" style="width:100%">
     {% endif %}

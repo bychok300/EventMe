@@ -5,9 +5,9 @@
 <h1>Edit Profile</h1>
 
 
-<form method="POST" action="{% url 'edit_profile' %}" class="" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form }}
     <button type="submit">Save</button>
 </form>
 
