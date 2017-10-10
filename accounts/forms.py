@@ -5,19 +5,19 @@ from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
     email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
-    avatar = forms.ImageField()
+
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'avatar')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
 
 class EditProfileForm(forms.ModelForm):
     # username = forms.CharField(max_length=50)
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
-    avatar = forms.ImageField()
+    profile_img = forms.ImageField()
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'avatar']
+        fields = ['first_name', 'last_name', 'profile_img']

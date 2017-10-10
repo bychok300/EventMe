@@ -21,6 +21,7 @@ stylize any heading tags withing white-panel below
 .white-panel h1 {
   font-size: 1em;
 }
+
 .white-panel h1 a {
   color: #A92733;
   padding: 0;

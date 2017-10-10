@@ -21,8 +21,14 @@ def signup(request):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
+    profile_img = Profile.objects.filter()
+    return render(request, 'profile.html', {'user': user, 'profile_img': profile_img})
 
-    return render(request, 'profile.html', {'user': user})
+
+# def get_profile_img(request, pk):
+#     profile_img = get_object_or_404(Profile, pk=pk)
+#
+#     return render(request, 'profile.html', {'profile_img': profile_img})
 
 
 def edit_profile(request):
@@ -33,7 +39,7 @@ def edit_profile(request):
             #user.username = request.POST.get('username')
             user.first_name = request.POST.get('first_name')
             user.last_name = request.POST.get('last_name')
-            user.avatar = request.POST.get('avatar')
+            profile.save()
             user.save()
             return redirect(to='profile/{}'.format(user))
 
