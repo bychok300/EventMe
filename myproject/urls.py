@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'profile/(?P<username>\w+)/$', accounts_views.profile, name='profile'),
     url(r'^profile/[0-9A-Za-z_\-]/edit_profile/$', accounts_views.edit_profile, name='edit_profile'),
+    #url(r'(?P<pk>\d+)/$', accounts_views.edit_profile_photo, name='edit_profile_photo'),
     url(r'^boards/(\d+)/(?P<pk>\d+)$', views.p, name='p'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

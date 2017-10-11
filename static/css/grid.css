@@ -18,6 +18,9 @@ img {
 stylize any heading tags withing white-panel below
 */
 
+.white-panel p {
+  font-size: 10px;
+}
 .white-panel h1 {
   font-size: 1em;
 }

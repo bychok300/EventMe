@@ -22,6 +22,9 @@
           <div class="collapse navbar-collapse" id="mainMenu">
             {% if user.is_authenticated %}
               <ul class="navbar-nav ml-auto">
+                <!--<div class="profileImage">-->
+                  <!--<img src="{#%{{ MEDIA_URL }}{{ user.profile.profile_img.url }} %#}"/>-->
+                <!--</div>-->
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ user.username }}

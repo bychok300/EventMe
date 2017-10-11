@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 from accounts.models import Profile
-from .forms import SignUpForm, EditProfileForm
+from .forms import SignUpForm, EditProfileForm, ChangeProfilePhoto
 
 
 def signup(request):
@@ -39,8 +39,23 @@ def edit_profile(request):
             #user.username = request.POST.get('username')
             user.first_name = request.POST.get('first_name')
             user.last_name = request.POST.get('last_name')
-            profile.save()
             user.save()
+            return redirect(to='profile/{}'.format(user))
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "edit_profile.html", context)
+
+
+def edit_profile_photo(request):
+    user = request.user
+    prof = get_object_or_404(Profile)
+    form = ChangeProfilePhoto(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            prof.save()
             return redirect(to='profile/{}'.format(user))
 
     context = {

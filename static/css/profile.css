@@ -4,6 +4,7 @@
     margin: auto;
     text-align: center;
 }
+
 ul {
     padding-left: 0;
 }
@@ -34,3 +35,4 @@ a {
 button:hover, a:hover {
     opacity: 0.7;
 }
+

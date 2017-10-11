@@ -35,9 +35,9 @@
         {% endif %}
         <h4><a href="{{ topic.id }}">{{ topic.subject }}</a></h4>
         {% if user.is_authenticated %}
-        <p><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
+        <p><b>creator : </b><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
         {% endif %}
-        <p>created at : {{ topic.last_updated }}</p>
+        <p><b>created at : </b>{{ topic.last_updated }}</p>
 
         <!--<p>Comments: {{ post.topic.comment.count }}</p>-->
       </article>

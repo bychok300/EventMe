@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{% static 'css/post_and_comments.css' %}">
 {% endblock %}
 {% block content %}
+<div class="who_come">
+    <p>Who come : </p>
+    <p align="left"><b ><a href="">I want join</a></b></p>
+</div>
 <div class="detailBox">
     <div class="titleBox">
       <label>{{topic.subject}}</label>
@@ -15,17 +19,23 @@
     </div>
     <div class="actionBox">
         <ul class="commentList">
+            {% for comment in post.comment.all %}
             <li>
-				{% for comment in post.comment.all %}
+
                 <div class="commenterImage">
-                  <img src="http://placekitten.com/45/45" />
+                  {% if user.profile.profile_img %}
+                    <img src="{{ MEDIA_URL }}{{ user.profile.profile_img.url }}" >
+                    {% else  %}
+                    <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg">
+                    {% endif %}
                 </div>
                 <div class="commentText">
 
                     <p class="">{{ comment.body }}</p> <span class="date sub-text">{{comment.created_at}}</span>
-					{% endfor %}
                 </div>
             </li>
+            {% endfor %}
+
         </ul>
         <form class="form-inline" role="form" method="post">
 			{% csrf_token%}
@@ -36,4 +46,5 @@
         </form>
     </div>
 </div>
+
 {% endblock %}

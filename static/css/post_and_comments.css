@@ -1,9 +1,20 @@
 @import url(//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
 
+.who_come {
+    width:20%;
+    border:1px solid #bbb;
+    margin-left:50px;
+    width:55%;
+    margin-bottom:1%;
+    padding: 1%;
+}
+
 .detailBox {
     width:55%;
     border:1px solid #bbb;
     margin:50px;
+    margin-top:0;
+
 }
 .titleBox {
     background-color:#fdfdfd;
