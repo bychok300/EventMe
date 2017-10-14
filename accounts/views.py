@@ -36,10 +36,10 @@ def edit_profile(request):
     form = EditProfileForm(request.POST, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
-            #user.username = request.POST.get('username')
             user.first_name = request.POST.get('first_name')
             user.last_name = request.POST.get('last_name')
             user.save()
+
             return redirect(to='profile/{}'.format(user))
 
     context = {
@@ -51,11 +51,10 @@ def edit_profile(request):
 
 def edit_profile_photo(request):
     user = request.user
-    prof = get_object_or_404(Profile)
     form = ChangeProfilePhoto(request.POST, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
-            prof.save()
+            user.profile.profile_img.save(user.username, request.FILES["profile_img"])
             return redirect(to='profile/{}'.format(user))
 
     context = {

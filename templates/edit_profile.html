@@ -5,7 +5,7 @@
 <h1>Edit Profile</h1>
 
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" novalidate enctype="multipart/form-data">
     {% csrf_token %}
     {{ form }}
     <button type="submit">Save</button>

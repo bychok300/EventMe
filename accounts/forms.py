@@ -17,11 +17,11 @@ class EditProfileForm(forms.ModelForm):
     # username = forms.CharField(max_length=50)
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
-    profile_img = forms.ImageField()
+    #profile_img = forms.ImageField()
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'profile_img']
+        fields = ['first_name', 'last_name']
 
 
 class ChangeProfilePhoto(forms.ModelForm):

@@ -27,7 +27,7 @@
   <div class="row">
     <hr>
     <section id="pinBoot">
-      {% for topic in board.topics.all reversed %}
+      {% for topic in board.topics.all %}
       {% if topic.image %}
       <article class="white-panel"><img src="{{ MEDIA_URL }}{{ topic.image.url }}" alt="">
         {% else %}

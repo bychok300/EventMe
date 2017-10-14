@@ -7,7 +7,7 @@ from jedi.evaluate import instance
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    profile_img = models.ImageField(null=True)
+    profile_img = models.ImageField(upload_to='media', null=True)
 #     first_name = models.TextField(max_length=30, blank=True)
 #     last_name = models.CharField(max_length=30, blank=True)
 #     birth_date = models.DateField(null=True, blank=True)
@@ -16,7 +16,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-
+#automatically ad info about use to profile
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
