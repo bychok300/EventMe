@@ -1,8 +1,11 @@
+import json
+
 from django.contrib.auth.models import User
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import NewTopicForm, CustomCommentForm
-from .models import Board, Topic, Post, Comments
+from .models import Board, Topic, Post, Comments, WhoComeOnEvent
 
 # вьюс это представления
 # они связаны с урлами, т.е. при переходе по урлу будет показан какой-то вью
@@ -54,6 +57,20 @@ def p(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
     post = get_object_or_404(Post, pk=pk)
     comment = Comments.objects.filter(pk=pk)
+    who_come = WhoComeOnEvent.objects.filter(which_event=topic.id)
+
+    if request.is_ajax():
+        who_come_obj = WhoComeOnEvent.objects.create(
+            visiter=user,
+            which_event=post.topic
+        )
+
+        visitors_usernames = []
+        for w in who_come:
+            visitors_usernames.append(w.visiter.username)
+
+        return HttpResponse(json.dumps(visitors_usernames))
+
     if request.method == 'POST':
         form = CustomCommentForm(request.POST)
         if form.is_valid():
@@ -66,9 +83,11 @@ def p(request, pk):
                 creator=user,
 
             )
-            return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment, 'form': form})
+            return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
+                                                 'form': form, 'who_come': who_come})
     else:
         form = CustomCommentForm()
-    return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment, 'form': form})
+    return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
+                                         'form': form, 'who_come': who_come})
 
 

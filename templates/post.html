@@ -3,10 +3,52 @@
 {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'css/post_and_comments.css' %}">
 {% endblock %}
+
 {% block content %}
 <div class="who_come">
+
    <p>Who come : </p>
-   <p align="left"><b ><a href="">I want join</a></b></p>
+
+   <form class="form-inline" role="form" method="post" id="joinToEventForm">
+      {% csrf_token %}
+      <p align="left"><b ><button type="submit">I want join</button></b></p></b></p>
+   </form>
+   <div id="who_come_links">
+   {% for u in who_come reversed %}
+    <p><a href="profile/{{u.visiter.username}}">{{u.visiter.username}}</a></p>
+   {% endfor %}
+   </div>
+
+<script>
+
+   $('#joinToEventForm').on('submit', function(event){
+    event.preventDefault();
+    console.log("form submitted!")  // sanity check
+
+
+   $.ajax({
+       type:'POST',
+       data:{
+           csrfmiddlewaretoken:'{{ csrf_token }}'
+       },
+
+       success : function (data) {
+//           console.log(data);
+//           var to_json = JSON.stringify(data);
+//           console.log(to_json);
+           var usernames = JSON.parse(data);
+           var html_str = '';
+
+           for (var i=0; i < usernames.length; i++) {
+               html_str += '<p><a href="profile/' + usernames[i] + '">' + usernames[i] + '</a></p>';
+           }
+
+           $('#who_come_links').html(html_str);
+       }
+   });
+});
+</script>
+
 </div>
 <div class="detailBox">
    <div class="titleBox">
@@ -47,4 +89,6 @@
       </form>
    </div>
 </div>
+
+
 {% endblock %}

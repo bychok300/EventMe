@@ -1,53 +1,43 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-  {{ board.name }} - {{ block.super }}
+{{ board.name }} - {{ block.super }}
 {% endblock %}
-
 {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'css/grid.css' %}">
 {% endblock %}
-
 {% block breadcrumb %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
-  <li class="breadcrumb-item active">{{ board.name }}</li>
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+<li class="breadcrumb-item active">{{ board.name }}</li>
 {% endblock %}
-
 {% block content %}
-  {% if user.is_authenticated %}
-  <div class="mb-4">
-    <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
-  </div>
-  {% endif %}
-
-
+{% if user.is_authenticated %}
+<div class="mb-4">
+   <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
+</div>
+{% endif %}
 <div class="container">
-
-
-  <div class="row">
-    <hr>
-    <section id="pinBoot">
-      {% for topic in board.topics.all %}
-      {% if topic.image %}
-      <article class="white-panel"><img src="{{ MEDIA_URL }}{{ topic.image.url }}" alt="">
-        {% else %}
-      <article class="white-panel"><img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
-        {% endif %}
-        <h4><a href="{{ topic.id }}">{{ topic.subject }}</a></h4>
-        {% if user.is_authenticated %}
-        <p><b>creator : </b><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
-        {% endif %}
-        <p><b>created at : </b>{{ topic.last_updated }}</p>
-
-        <!--<p>Comments: {{ post.topic.comment.count }}</p>-->
-      </article>
-
-      {% endfor %}
-    </section>
-    <hr>
-
-
-  </div>
-
+   <div class="row">
+      <hr>
+      <section id="pinBoot">
+         {% for topic in board.topics.all %}
+         {% if topic.image %}
+         <article class="white-panel">
+         <img src="{{ MEDIA_URL }}{{ topic.image.url }}" alt="">
+         {% else %}
+         <article class="white-panel">
+            <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
+            {% endif %}
+            <h4><a href="{{ topic.id }}">{{ topic.subject }}</a></h4>
+            {% if user.is_authenticated %}
+            <p><b>creator : </b><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
+            {% endif %}
+            <p><b>created at : </b>{{ topic.last_updated }}</p>
+            <!--<p><b>will goes: </b></p>-->
+         </article>
+         {% endfor %}
+      </section>
+      <hr>
+   </div>
 </div>
 {% endblock %}

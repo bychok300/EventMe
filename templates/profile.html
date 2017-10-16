@@ -3,37 +3,34 @@
 {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
-
-    {% block content %}
+{% block content %}
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <div class="card">
-<a href="/chPhoto/" style="
-    font-size: 15px;
-    color: gray;
-    position: absolute;
-    padding-left: 33%;">change photo</a>
-
-    {% if user.profile.profile_img %}
-  <img src="{{ MEDIA_URL }}{{ user.profile.profile_img.url }}" alt="John" style="width:100%">
-    {% else  %}
-    <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="John" style="width:100%">
-    {% endif %}
-    <h1>{{user.username}}</h1>
-  <p class="title">CEO & Founder, Example</p>
-  <p>Harvard University</p>
-    <p>{{user.first_name}}</p>
-    <p>{{user.last_name}}</p>
-    <ul>
-  <a href="#"><i class="fa fa-dribbble"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <a href="#"><i class="fa fa-facebook"></i></a>
-  <p><button>Send Message</button></p>
+   <a href="/chPhoto/" style="
+      font-size: 15px;
+      color: gray;
+      position: absolute;
+      padding-left: 33%;">change photo</a>
+   {% if user.profile.profile_img %}
+   <img src="{{ MEDIA_URL }}{{ user.profile.profile_img.url }}" alt="John" style="width:100%">
+   {% else  %}
+   <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="John" style="width:100%">
+   {% endif %}
+   <h1>{{user.username}}</h1>
+   <p class="title">CEO & Founder, Example</p>
+   <p>Harvard University</p>
+   <p>{{user.first_name}}</p>
+   <p>{{user.last_name}}</p>
+   <ul>
+      <a href="#"><i class="fa fa-dribbble"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <p><button>Send Message</button></p>
       {% if user.is_authenticated %}
       <a href="{% url 'edit_profile' %}">edit profile</a>
       {% endif %}
-    </ul>
+   </ul>
 </div>
 {% endblock %}

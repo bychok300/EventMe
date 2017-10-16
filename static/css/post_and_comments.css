@@ -9,6 +9,20 @@
     padding: 1%;
 }
 
+.who_come button {
+
+   background-color:white;
+   border:0;
+   padding:0;
+   color: #249D7F;
+}
+.who_come button:hover {
+
+   background-color:white;
+   border:0;
+   color:#2795EE;
+}
+
 .detailBox {
     width:55%;
     border:1px solid #bbb;

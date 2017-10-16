@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Topic, Comments
+from .models import Topic, Comments, WhoComeOnEvent
 
 # forms.py это формы которые ты видишь в html
 # хз на самом деле как это ещё описать, я вроде интуитивно понимаю
@@ -35,3 +35,14 @@ class CustomCommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ['body']
+
+
+class JoinToEvent(forms.ModelForm):
+    class Meta:
+        model = WhoComeOnEvent
+        exclude = ['username']
+        widgets = {
+            'text': forms.TextInput(
+                attrs={'id': 'username', 'required': False}
+            ),
+        }

@@ -47,3 +47,15 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.body
+
+
+class WhoComeOnEvent(models.Model):
+    visiter = models.ForeignKey(User, related_name='WhoComeOnEvent')
+    which_event = models.ForeignKey(Topic, related_name='WhoComeOnEvent')
+    # which_post = models.ForeignKey(Post, related_name='WhoComeOnEvent')
+
+    def __str__(self):
+        return '%s go to %s' % (self.visiter.username, self.which_event.subject)
+
+    # def __iter__(self):
+    #     return self.visiter, self.which_event
