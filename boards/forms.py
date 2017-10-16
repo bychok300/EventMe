@@ -25,16 +25,24 @@ class NewTopicForm(forms.ModelForm):
 
 
 class CustomCommentForm(forms.ModelForm):
-    body = forms.CharField(
-        widget=forms.Textarea(
-            attrs={'rows': 3, 'placeholder': 'Any ideas to comment?'}
-        ),
-        max_length=4000
-    )
+    # body = forms.CharField(
+    #     widget=forms.Textarea(
+    #         attrs={'id': 'post-text', 'required': True, 'placeholder': 'Say something...'}
+    #     ),
+    # }
+    #
+    # ),
+    #     max_length=4000
+    # )
 
     class Meta:
         model = Comments
         fields = ['body']
+        widgets = {
+            'body': forms.TextInput(
+                attrs={'id': 'post-body', 'required': True, 'placeholder': 'Say something...'}
+            ),
+        }
 
 
 class JoinToEvent(forms.ModelForm):

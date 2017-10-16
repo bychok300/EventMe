@@ -16,7 +16,12 @@
     <hr>
     <section id="pinBoot">
       {% for board in boards %}
+      {% if board.image %}
+      <article class="white-panel">
+        <img src="{{ MEDIA_URL }}{{ board.image.url }}" alt="">
+      {% else %}
       <article class="white-panel"><img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
+        {% endif %}
         <h4><a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a></h4>
         <p>{{ board.description }}</p>
         <p><b>Posts :</b> {{ board.topics.count }}</p>

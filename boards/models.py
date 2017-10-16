@@ -9,7 +9,7 @@ from django.utils.timezone import now
 class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
-
+    image = models.ImageField(upload_to='media', null=True)
     # этот метод - конструктор
     # в данном случае будет отражать имя топика в админке
     def __str__(self):
@@ -42,11 +42,11 @@ class Post(models.Model):
 class Comments(models.Model):
     creator = models.ForeignKey(User, related_name='comment')
     body = models.TextField(max_length=4000)
-    post = models.ForeignKey(Post, related_name='comment', null=True)
+    post = models.ForeignKey(Post, related_name='comment')
     created_at = models.DateTimeField(default=now)
 
     def __str__(self):
-        return self.body
+        return '%s comment on %s' % (self.body, self.post.topic.subject)
 
 
 class WhoComeOnEvent(models.Model):

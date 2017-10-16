@@ -77,11 +77,11 @@ def p(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.creator = user
-            comment.save()
+            # comment.save() #из-за этой блевотины было 2 записи в базу
             comment = Comments.objects.create(
                 body=form.cleaned_data.get('body'),
                 creator=user,
-
+                post=post
             )
             return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
                                                  'form': form, 'who_come': who_come})
@@ -90,4 +90,16 @@ def p(request, pk):
     return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
                                          'form': form, 'who_come': who_come})
 
-
+    #     comment_body = request.POST.get('body')
+    #     response_data = {}
+    #
+    #     comment = Comments(body=comment_body, creator=request.user)
+    #     comment.save()
+    #     response_data['body'] = comment.body
+    #     response_data['created_at'] = comment.created_at.strftime('%B %d, %Y %I:%M %p')
+    #     response_data['creator'] = comment.creator.username
+    #     return HttpResponse(json.dumps(response_data))
+    #
+    # else:
+    #
+    #     return HttpResponse(json.dumps({"nothing to see": "this isn't happening"}))
