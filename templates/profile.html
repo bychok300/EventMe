@@ -27,6 +27,58 @@
       <a href="#"><i class="fa fa-twitter"></i></a>
       <a href="#"><i class="fa fa-linkedin"></i></a>
       <a href="#"><i class="fa fa-facebook"></i></a>
+       <p align="left" style="padding-left: 4%;" id = "user-rating">Rating : {{user.profile.profile_rating}}</p>
+      
+      <form class="form-inline" role="form" method="post" id="upRate">
+         {% csrf_token %}
+         <p align="left"><b ><button type="submit" name="up">&#129081;</button></b></p>
+         </b></p>
+      </form>
+      <form class="form-inline" role="form" method="post" id="downRate">
+         {% csrf_token %}
+         <p align="left"><b ><button type="submit" name="down">&#129083;</button></b></p>
+         </b></p>
+      </form>
+
+      <script>
+         $('#upRate').on('submit', function(event){
+             event.preventDefault();
+             console.log("upRate")  // sanity check
+              $.ajax({
+                  type:'POST',
+                  data:{
+                      action: 'up',
+                      csrfmiddlewaretoken:'{{ csrf_token }}'
+                  },
+
+                  success : function (data) {
+                      //console.log(data);
+                      var rating = JSON.parse(data);
+                      //console.log(rating);
+                      $('#user-rating').html('Rating : ' + rating);
+                  }
+              });
+         });
+              $('#downRate').on('submit', function(event){
+                  event.preventDefault();
+                  console.log("downRate!");  // sanity check
+                   $.ajax({
+                       type:'POST',
+                       data:{
+                           action: 'down',
+                           csrfmiddlewaretoken:'{{ csrf_token }}'
+                       },
+
+                       success : function (data) {
+                           console.log(data);
+                           var rating = JSON.parse(data);
+                           console.log(rating);
+
+                           $('#user-rating').html('Rating : ' + rating);
+                       }
+                   });
+              });
+      </script>
       <p><button>Send Message</button></p>
       {% if user.is_authenticated %}
       <a href="{% url 'edit_profile' %}">edit profile</a>

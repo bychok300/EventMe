@@ -87,6 +87,12 @@
     width:100%;
     border-radius:50%;
 }
+.commentText #com-creator {
+    color: #6c757d;
+
+    font-size: 80%;
+}
+
 .commentText p {
     margin:0;
 }

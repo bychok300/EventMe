@@ -8,6 +8,7 @@ from jedi.evaluate import instance
 class Profile(models.Model):
     user = models.OneToOneField(User)
     profile_img = models.ImageField(upload_to='media', null=True)
+    profile_rating = models.IntegerField(default=0)
 #     first_name = models.TextField(max_length=30, blank=True)
 #     last_name = models.CharField(max_length=30, blank=True)
 #     birth_date = models.DateField(null=True, blank=True)

@@ -1,8 +1,9 @@
 import json
 
 from django.contrib.auth.models import User
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from .forms import NewTopicForm, CustomCommentForm
 from .models import Board, Topic, Post, Comments, WhoComeOnEvent
@@ -83,8 +84,10 @@ def p(request, pk):
                 creator=user,
                 post=post
             )
-            return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
-                                                 'form': form, 'who_come': who_come})
+            
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
+            #                                      'form': form, 'who_come': who_come})
     else:
         form = CustomCommentForm()
     return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,

@@ -1,6 +1,8 @@
+import json
+
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from accounts.models import Profile
@@ -21,14 +23,24 @@ def signup(request):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
-    profile_img = Profile.objects.filter()
-    return render(request, 'profile.html', {'user': user, 'profile_img': profile_img})
+    user_profile = Profile.objects.filter() # название переменной ебаное! эта строчка значит, что фильтруем объекты таблицы профиль без параметров фильтра
+    user_rating = Profile.objects.filter(profile_rating=user.profile.profile_rating)
+    rating = []
+    if request.is_ajax():
+        # если данные с формы up то +1 иначе -1
+        if request.POST.get('action') == 'up':
+            user.profile.profile_rating += 1
+            user.save()
+            rating.append(user.profile.profile_rating)
+            return HttpResponse(json.dumps(rating))
+        else:
+            user.profile.profile_rating -= 1
+            user.save()
+            rating.append(user.profile.profile_rating)
+            return HttpResponse(json.dumps(rating))
 
+    return render(request, 'profile.html', {'user': user, 'user_profile': user_profile})
 
-# def get_profile_img(request, pk):
-#     profile_img = get_object_or_404(Profile, pk=pk)
-#
-#     return render(request, 'profile.html', {'profile_img': profile_img})
 
 
 def edit_profile(request):
