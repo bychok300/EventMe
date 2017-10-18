@@ -60,7 +60,7 @@ def p(request, pk):
     comment = Comments.objects.filter(pk=pk)
     who_come = WhoComeOnEvent.objects.filter(which_event=topic.id)
 
-    if request.is_ajax():
+    if request.is_ajax() and request.POST.get('action') == 'joinEvent':
         who_come_obj = WhoComeOnEvent.objects.create(
             visiter=user,
             which_event=post.topic
@@ -84,7 +84,7 @@ def p(request, pk):
                 creator=user,
                 post=post
             )
-            
+
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             # return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
             #                                      'form': form, 'who_come': who_come})

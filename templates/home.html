@@ -24,7 +24,7 @@
         {% endif %}
         <h4><a href="{% url 'board_topics' board.pk %}" >{{ board.name }}</a></h4>
         <p>{{ board.description }}</p>
-        <p><b>Posts :</b> {{ board.topics.count }}</p>
+        <p><b>Events :</b> {{ board.topics.count }}</p>
       </article>
 
       {% endfor %}

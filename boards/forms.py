@@ -40,7 +40,7 @@ class CustomCommentForm(forms.ModelForm):
         fields = ['body']
         widgets = {
             'body': forms.TextInput(
-                attrs={'id': 'post-body', 'required': True, 'placeholder': 'Say something...'}
+                attrs={'id': 'body', 'required': True, 'placeholder': 'Say something...'}
             ),
         }
 
