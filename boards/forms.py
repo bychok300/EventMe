@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Topic, Comments, WhoComeOnEvent
+from .models import Topic, Comments, WhoComeOnEvent, Post
+
 
 # forms.py это формы которые ты видишь в html
 # хз на самом деле как это ещё описать, я вроде интуитивно понимаю
@@ -13,7 +14,7 @@ class NewTopicForm(forms.ModelForm):
             attrs={'rows': 5, 'placeholder': 'What is in your mind?'}
         ),
         max_length=4000,
-        help_text='The max length of the text is 4000.'
+        help_text='The max length of the text is 4000.',
     )
     # пока так, а то если оно не в обяз,
     # то баг всплывает, вьха не находит картинку
@@ -22,6 +23,24 @@ class NewTopicForm(forms.ModelForm):
     class Meta:
         model = Topic
         fields = ['subject', 'message', 'image']
+
+
+class EditFormTopic(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ['subject', 'image']
+
+
+class EditFormPost(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['message']
+
+
+class DeleteForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ['subject']
 
 
 class CustomCommentForm(forms.ModelForm):

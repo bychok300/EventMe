@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Start a Edit Topic{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+<li class="breadcrumb-item"><a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a></li>
+<li class="breadcrumb-item active">Edit topic</li>
+{% endblock %}
+{% block content %}
+<form method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form_topic.as_p}}
+    {{form_post.as_p}}
+    <button type="submit" class="btn btn-success">Post</button>
+</form>
+{% endblock %}

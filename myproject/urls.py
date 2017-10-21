@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -40,10 +40,13 @@ urlpatterns = [
 
     url(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
     url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
+    url(r'^boards/(?P<pk>\d+)/(?P<id>\d+)/edit/$', views.edit_topic, name='edit_topic'),
+    url(r'^boards/(?P<pk>\d+)/(?P<id>\d+)/delete/$', views.delete_topic, name='delete_topic'),
     url(r'^admin/', admin.site.urls),
     url(r'profile/(?P<username>\w+)/$', accounts_views.profile, name='profile'),
     url(r'^profile/[0-9A-Za-z_\-]/edit_profile/$', accounts_views.edit_profile, name='edit_profile'),
     url(r'^chPhoto/$', accounts_views.edit_profile_photo, name='edit_profile_photo'),
-    url(r'^boards/(\d+)/(?P<pk>\d+)$', views.p, name='p'),
+    url(r'^boards/(\d+)/(?P<pk>\d+)/$', views.p, name='p'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

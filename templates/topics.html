@@ -28,12 +28,15 @@
          <article class="white-panel">
             <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg" alt="">
             {% endif %}
-            <h4><a href="{{ topic.id }}">{{ topic.subject }}</a></h4>
+            <h4><a href="{{ topic.id }}/">{{ topic.subject }}</a></h4>
             {% if user.is_authenticated %}
             <p><b>creator : </b><a href="profile/{{ topic.starter }}">{{ topic.starter.username }}</a></p>
             {% endif %}
             <p><b>created at : </b>{{ topic.last_updated }}</p>
             <!--<p><b>will goes: </b></p>-->
+            {% if topic.starter.username == request.user.username %}
+            <p><a href="{{ topic.id }}/edit">edit<a/> | <a href="{{ topic.id }}/delete/" >delete</a></p>
+            {% endif %}
          </article>
          {% endfor %}
       </section>

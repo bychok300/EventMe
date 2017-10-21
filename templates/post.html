@@ -13,6 +13,7 @@
       {% csrf_token %}
       <p align="left"><b ><button type="submit">I want join</button></b></p></b></p>
    </form>
+
    <div id="who_come_links">
    {% for u in who_come reversed %}
     <p><a href="profile/{{u.visiter.username}}" title="{{u.visiter.first_name}} {{u.visiter.last_name}}">{{u.visiter.username}}</a></p>
@@ -34,9 +35,8 @@
        },
 
        success : function (data) {
-//           console.log(data);
-//           var to_json = JSON.stringify(data);
-//           console.log(to_json);
+           //console.log(data);
+
            var usernames = JSON.parse(data);
            var html_str = '';
 
@@ -45,7 +45,9 @@
            }
 
            $('#who_come_links').html(html_str);
-       }
+           }
+
+
    });
 });
 </script>
@@ -71,7 +73,7 @@
 
                {% else  %}
                <img src="https://image.freepik.com/free-vector/no-translate-detected_1053-593.jpg">
-               {{ user.username }}
+
                {% endif %}
             </div>
             <div class="commentText">
@@ -124,6 +126,7 @@
     <!--});-->
 <!--};-->
       <!--</script>-->
+
    </div>
 </div>
 

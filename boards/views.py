@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from .forms import NewTopicForm, CustomCommentForm
+from .forms import NewTopicForm, CustomCommentForm, EditFormTopic, EditFormPost, DeleteForm
 from .models import Board, Topic, Post, Comments, WhoComeOnEvent
 
 # вьюс это представления
@@ -51,6 +51,39 @@ def new_topic(request, pk):
     else:
         form = NewTopicForm()
     return render(request, 'new_topic.html', {'board': board, 'form': form})
+
+
+def delete_topic(request, pk, id):
+    board = get_object_or_404(Board, pk=pk)
+    if request.method == 'POST':
+        topic = Topic.objects.filter(id=id)
+        #print(topic)
+        topic.delete()
+        return redirect('board_topics', pk=board.pk)
+    return render(request, 'delete_topic.html', {'board': board})
+
+
+def edit_topic(request, pk, id):
+    board = get_object_or_404(Board, pk=pk)
+    top = get_object_or_404(Topic, id=id)
+    post = Post.objects.get(id=id)
+    user = request.user    # get the currently logged in user
+    if request.method == 'POST':
+        #инициализируем форму
+        form_topic = EditFormTopic(request.POST, request.FILES, instance=top)
+        form_post = EditFormPost(request.POST, instance=post)
+        if form_topic.is_valid() and form_post:
+            topic = form_topic.save(commit=False)
+            post = form_post.save(commit=False)
+            topic.board = board
+            topic.starter = user
+            topic.save()
+            post.save()
+            return redirect('board_topics', pk=board.pk)
+    else:
+        form_topic = EditFormTopic(instance=top)
+        form_post = EditFormPost(instance=post)
+    return render(request, 'edit_topic.html', {'board': board, 'form_topic': form_topic, 'form_post': form_post})
 
 
 def p(request, pk):

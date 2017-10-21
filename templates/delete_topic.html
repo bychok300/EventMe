@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Start a Delete Topic{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+<li class="breadcrumb-item active">Delete</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    Are u you sure? <a href="{% url 'board_topics' board.pk %}">NO</a>
+    <button type="submit" class="btn btn-success">Delete</button>
+</form>
+{% endblock %}
