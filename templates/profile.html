@@ -39,7 +39,16 @@
          <p align="left"><b ><button type="submit" name="down">&#129083;</button></b></p>
          </b></p>
       </form>
-
+      <script>
+      $('#upRate').submit(function() {
+         $(this).find("button[type='submit']").prop('disabled',true);
+      });
+   </script>
+      <script>
+      $('#downRate').submit(function() {
+         $(this).find("button[type='submit']").prop('disabled',true);
+      });
+   </script>
       <script>
          $('#upRate').on('submit', function(event){
              event.preventDefault();

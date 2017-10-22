@@ -19,6 +19,11 @@
     <p><a href="profile/{{u.visiter.username}}" title="{{u.visiter.first_name}} {{u.visiter.last_name}}">{{u.visiter.username}}</a></p>
    {% endfor %}
    </div>
+   <script>
+      $('#joinToEventForm').submit(function() {
+         $(this).find("button[type='submit']").prop('disabled',true);
+      });
+   </script>
 
 <script>
 
@@ -45,6 +50,7 @@
            }
 
            $('#who_come_links').html(html_str);
+
            }
 
 
