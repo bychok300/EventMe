@@ -8,12 +8,12 @@
 <div class="who_come">
 
    <p>Who come : </p>
-
+   {% if not is_already_coming %}
    <form class="form-inline" role="form" method="post" id="joinToEventForm">
       {% csrf_token %}
       <p align="left"><b ><button type="submit">I want join</button></b></p></b></p>
    </form>
-
+   {% endif %}
    <div id="who_come_links">
    {% for u in who_come reversed %}
     <p><a href="profile/{{u.visiter.username}}" title="{{u.visiter.first_name}} {{u.visiter.last_name}}">{{u.visiter.username}}</a></p>

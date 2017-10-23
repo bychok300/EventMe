@@ -20,9 +20,8 @@ def home(request):
 
 # по аналогии с методом хоум, только сдесь берется объект или 404
 # то есть если объект получить не удалось будет ошибка 404
-# второй параметор это первичный ключь
-# хз как описать его влияние
-# типо по нему обращаются к таблице
+# второй параметор это первичный ключ
+# он отображается в урл паттерне
 
 
 def board_topics(request, pk):
@@ -47,7 +46,7 @@ def new_topic(request, pk):
                 topic=topic,
                 created_by=user,
             )
-            return redirect('board_topics', pk=board.pk)  # TODO: redirect to the created topic page
+            return redirect('board_topics', pk=board.pk)  # redirect to the created topic page
     else:
         form = NewTopicForm()
     return render(request, 'new_topic.html', {'board': board, 'form': form})
@@ -57,7 +56,6 @@ def delete_topic(request, pk, id):
     board = get_object_or_404(Board, pk=pk)
     if request.method == 'POST':
         topic = Topic.objects.filter(id=id)
-        #print(topic)
         topic.delete()
         return redirect('board_topics', pk=board.pk)
     return render(request, 'delete_topic.html', {'board': board})
@@ -91,7 +89,8 @@ def p(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
     post = get_object_or_404(Post, pk=pk)
     comment = Comments.objects.filter(pk=pk)
-    who_come = WhoComeOnEvent.objects.filter(which_event=topic.id)
+    who_come = WhoComeOnEvent.objects.filter(which_event=topic.id).distinct('visiter')
+    is_already_coming = False
 
     if request.is_ajax() and request.POST.get('action') == 'joinEvent':
         who_come_obj = WhoComeOnEvent.objects.create(
@@ -122,9 +121,11 @@ def p(request, pk):
             # return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
             #                                      'form': form, 'who_come': who_come})
     else:
+
         form = CustomCommentForm()
+
     return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
-                                         'form': form, 'who_come': who_come})
+                                         'form': form, 'who_come': who_come, 'is_already_coming': is_already_coming} )
 
     #     comment_body = request.POST.get('body')
     #     response_data = {}
