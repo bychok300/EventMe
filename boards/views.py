@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from .forms import NewTopicForm, CustomCommentForm, EditFormTopic, EditFormPost, DeleteForm
 from .models import Board, Topic, Post, Comments, WhoComeOnEvent
+from django.db import connection
 
 # вьюс это представления
 # они связаны с урлами, т.е. при переходе по урлу будет показан какой-то вью
@@ -90,13 +91,18 @@ def p(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comment = Comments.objects.filter(pk=pk)
     who_come = WhoComeOnEvent.objects.filter(which_event=topic.id).distinct('visiter')
-    is_already_coming = False
 
     if request.is_ajax() and request.POST.get('action') == 'joinEvent':
+        
         who_come_obj = WhoComeOnEvent.objects.create(
             visiter=user,
             which_event=post.topic
         )
+        #HOT FIX
+        query = "CREATE TEMP TABLE t_deleteIds (id int); insert into t_deleteIds(id) (select id from (SELECT id, ROW_NUMBER() OVER(PARTITION BY visiter_id, which_event_id ORDER BY id asc) AS Row FROM boards_whocomeonevent) dups where dups.Row > 1); delete from boards_whocomeonevent p using t_deleteIds t where p.id = t.id;"
+        cursor = connection.cursor()
+        cursor.execute(query)
+
 
         visitors_usernames = []
         for w in who_come:
@@ -125,7 +131,7 @@ def p(request, pk):
         form = CustomCommentForm()
 
     return render(request, 'post.html', {'post': post, 'topic': topic, 'comment': comment,
-                                         'form': form, 'who_come': who_come, 'is_already_coming': is_already_coming} )
+                                         'form': form, 'who_come': who_come})
 
     #     comment_body = request.POST.get('body')
     #     response_data = {}
