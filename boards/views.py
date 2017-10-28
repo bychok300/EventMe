@@ -1,10 +1,12 @@
 import json
 
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
+from myproject import settings
 from .forms import NewTopicForm, CustomCommentForm, EditFormTopic, EditFormPost, DeleteForm
 from .models import Board, Topic, Post, Comments, WhoComeOnEvent
 from django.db import connection
@@ -93,7 +95,7 @@ def p(request, pk):
     who_come = WhoComeOnEvent.objects.filter(which_event=topic.id).distinct('visiter')
 
     if request.is_ajax() and request.POST.get('action') == 'joinEvent':
-        
+
         who_come_obj = WhoComeOnEvent.objects.create(
             visiter=user,
             which_event=post.topic
@@ -103,6 +105,9 @@ def p(request, pk):
         cursor = connection.cursor()
         cursor.execute(query)
 
+        mail_subject = 'New user joined to your event'
+        to_email = topic.starter.email
+        send_mail(mail_subject, "Check out new user on your event", settings.EMAIL_HOST_USER, [to_email])
 
         visitors_usernames = []
         for w in who_come:
