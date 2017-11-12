@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'eventme_db',
         'USER': 'postgres',
-        'PASSWORD': "!ereleb89!@@",
+        'PASSWORD': "yourpass",
         'HOST': 'localhost',
         'PORT': '5432',
 
@@ -151,8 +151,8 @@ MEDIA_ROOT = '%s/media' % BASE_DIR
 # for email confirmation
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bychok300@gmail.com'
-EMAIL_HOST_PASSWORD = '!ereleb89!@@@'
+EMAIL_HOST_USER = 'your@email.com'
+EMAIL_HOST_PASSWORD = 'yourpass'
 EMAIL_PORT = 587
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
